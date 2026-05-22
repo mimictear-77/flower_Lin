@@ -1,1241 +1,996 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>玫瑰之城 · 完整产品手册</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玫瑰之城 · 生命剧本的重塑</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --rose:#C4687C; --rose-d:#8B2635; --rose-dd:#5C1622;
+  --rose-l:#F2D5D9; --rose-p:#FFF8F5; --rose-m:#FAE8EA;
+  --gold:#C9A96E; --gold-l:rgba(201,169,110,.15);
+  --cream:#FAF0EB;
+  --t1:#3D1A1A; --t2:#7A4A4A; --t3:#B89090;
+  --white:#FFFFFF;
+  --shadow:0 4px 24px rgba(139,38,53,.1);
+}
+html,body{min-height:100vh}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  background:var(--rose-p);color:var(--t1);
+  -webkit-font-smoothing:antialiased;
+}
 
-        :root {
-            --rose-deep: #8B2252;
-            --rose-light: #C4506E;
-            --rose-glow: #E8A0B8;
-            --gold: #B8860B;
-            --gold-light: #D4A843;
-            --dark-bg: #1A1A2E;
-            --dark-card: #232340;
-            --warm-white: #F5F0EB;
-            --warm-gray: #B8B0A8;
-            --text-body: #E8E0D8;
-        }
+/* ─── Screens ─── */
+.screen{display:none;min-height:100vh;flex-direction:column}
+.screen.on{display:flex}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+@keyframes su{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+/* ─── Cover ─── */
+#sCover{
+  background:url('picture/微信图片_20260519115908_159_197.jpg') left center/cover no-repeat;
+  justify-content:center; align-items:flex-end;
+  padding:0 8% 0 0; animation:fi 1.2s ease;
+}
+.cover-box{
+  max-width:380px; padding:60px 0;
+  animation:su .9s ease .4s both;
+}
+.cover-en{font-size:11px;letter-spacing:4px;color:var(--t3);margin-bottom:18px;font-weight:500}
+.cover-title{font-size:52px;font-weight:700;color:var(--t1);letter-spacing:-2px;line-height:1;margin-bottom:6px}
+.cover-sub{font-size:17px;color:var(--t2);margin-bottom:28px;letter-spacing:1px}
+.cover-desc{
+  font-size:13px;color:var(--t3);line-height:2.2;margin-bottom:36px;
+  padding-left:12px;border-left:2px solid var(--rose-l);
+}
+.btn-enter{
+  padding:14px 40px;background:var(--rose-d);color:var(--white);
+  border:none;border-radius:100px;font-size:15px;font-family:inherit;
+  cursor:pointer;letter-spacing:2px;transition:all .3s;
+}
+.btn-enter:hover{background:var(--rose);transform:translateY(-2px);box-shadow:0 10px 28px rgba(139,38,53,.3)}
 
-        body {
-            font-family: 'Noto Sans SC', sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-body);
-            line-height: 1.8;
-            font-size: 16px;
-        }
+/* ─── Name Input ─── */
+#sName{
+  background:url('picture/微信图片_20260519115911_160_197.png') left bottom/45% no-repeat, var(--rose-p);
+  justify-content:center;align-items:center;
+  padding:40px 24px; animation:fi .5s ease;
+}
+.name-card{
+  background:rgba(255,255,255,.92);backdrop-filter:blur(20px);
+  border-radius:24px;padding:52px 44px;max-width:460px;width:100%;
+  text-align:center;box-shadow:0 24px 64px rgba(139,38,53,.12);
+  animation:su .6s ease .15s both;
+}
+.name-rose{font-size:36px;margin-bottom:18px}
+.name-title{font-size:26px;font-weight:700;letter-spacing:-.5px;margin-bottom:8px}
+.name-quote{font-size:13px;color:var(--t3);line-height:1.9;margin-bottom:32px}
+.name-input{
+  width:100%;padding:16px 20px;border:1.5px solid var(--rose-l);
+  border-radius:14px;font-size:17px;font-family:inherit;color:var(--t1);
+  background:var(--rose-p);outline:none;text-align:center;
+  transition:border-color .2s;margin-bottom:10px;letter-spacing:1px;
+}
+.name-input:focus{border-color:var(--rose)}
+.name-input::placeholder{color:var(--t3);font-size:15px;letter-spacing:0}
+.privacy{font-size:12px;color:var(--t3);margin-bottom:26px;line-height:1.6}
+.btn-start{
+  width:100%;padding:15px;background:linear-gradient(135deg,var(--rose),var(--rose-d));
+  color:var(--white);border:none;border-radius:14px;font-size:16px;
+  font-family:inherit;cursor:pointer;letter-spacing:1px;transition:opacity .2s;
+}
+.btn-start:hover{opacity:.9}
+.api-toggle{font-size:12px;color:var(--t3);cursor:pointer;margin-top:18px;padding:6px}
+.api-toggle:hover{color:var(--t2)}
+.api-panel{display:none;margin-top:12px;padding:16px;background:var(--rose-p);border-radius:12px;text-align:left}
+.api-panel.on{display:block}
+.api-tabs{display:flex;gap:8px;margin-bottom:10px}
+.api-tab{
+  flex:1;padding:9px 0;border:1.5px solid var(--rose-l);border-radius:8px;
+  background:var(--white);font-size:13px;font-family:inherit;color:var(--t2);
+  cursor:pointer;text-align:center;transition:all .2s;
+}
+.api-tab.sel{border-color:var(--rose);background:var(--rose-m);color:var(--rose-d);font-weight:600}
+.api-input{
+  width:100%;padding:10px 14px;border:1.5px solid var(--rose-l);border-radius:8px;
+  font-size:13px;font-family:inherit;color:var(--t1);background:var(--white);
+  outline:none;margin-bottom:8px;transition:border-color .2s;
+}
+.api-input:last-child{margin-bottom:0}
+.api-input:focus{border-color:var(--rose)}
+.api-lbl{font-size:11px;color:var(--t3);margin-bottom:5px;display:block}
 
-        /* 花瓣动画 */
-        .petal {
-            position: fixed;
-            width: 12px;
-            height: 12px;
-            background: radial-gradient(ellipse at center, var(--rose-glow), transparent);
-            border-radius: 50% 0 50% 0;
-            opacity: 0.15;
-            pointer-events: none;
-            animation: float 20s infinite ease-in-out;
-        }
-        .petal:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; animation-duration: 25s; }
-        .petal:nth-child(2) { top: 30%; left: 85%; animation-delay: 3s; animation-duration: 22s; }
-        .petal:nth-child(3) { top: 60%; left: 15%; animation-delay: 7s; animation-duration: 28s; }
-        .petal:nth-child(4) { top: 80%; left: 75%; animation-delay: 5s; animation-duration: 20s; }
-        .petal:nth-child(5) { top: 45%; left: 50%; animation-delay: 10s; animation-duration: 30s; }
+/* ─── Transition ─── */
+#sTrans{
+  background:var(--rose-p);
+  justify-content:center;align-items:center;
+  animation:fi .4s ease;
+}
+.trans-wrap{text-align:center}
+.trans-rose{font-size:52px;margin-bottom:28px;animation:bloom 3s ease infinite}
+@keyframes bloom{0%,100%{transform:scale(1) rotate(-3deg)}50%{transform:scale(1.06) rotate(3deg)}}
+.trans-name{font-size:13px;color:var(--t3);letter-spacing:3px;margin-bottom:10px}
+.trans-text{font-size:28px;color:var(--t1);font-weight:300;letter-spacing:2px;animation:breathe 2.5s ease infinite}
+@keyframes breathe{0%,100%{opacity:.45}50%{opacity:1}}
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.15; }
-            25% { transform: translateY(-30px) rotate(45deg); opacity: 0.25; }
-            50% { transform: translateY(-10px) rotate(90deg); opacity: 0.1; }
-            75% { transform: translateY(-40px) rotate(135deg); opacity: 0.2; }
-        }
+/* ─── Chat ─── */
+#sChat{background:var(--rose-p)}
+.chat-hd{
+  position:fixed;top:0;left:0;right:0;
+  background:rgba(255,248,245,.88);backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--rose-l);padding:12px 20px 10px;z-index:50;
+}
+.chat-hd-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.ai-badge{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--t1)}
+.ai-pulse{width:8px;height:8px;background:#6FCF97;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+.stage-lbl{font-size:11px;color:var(--t3);letter-spacing:.5px}
+.stage-dots{display:flex;gap:5px;align-items:center}
+.sd{width:8px;height:8px;border-radius:50%;background:var(--rose-l);transition:all .4s}
+.sd.on{background:var(--rose);width:22px;border-radius:4px;box-shadow:0 0 8px rgba(196,104,124,.4)}
+.sd.ok{background:var(--rose);opacity:.4}
+.sd-names{display:flex;justify-content:space-between;margin-top:5px}
+.sd-name{font-size:10px;color:var(--t3)}
 
-        /* 导航 */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(26, 26, 46, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(184, 134, 11, 0.2);
-            z-index: 1000;
-            padding: 12px 0;
-        }
-        .nav-inner {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .nav-brand {
-            font-family: 'Noto Serif SC', serif;
-            color: var(--gold);
-            font-size: 18px;
-            font-weight: 600;
-        }
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .nav-links a {
-            color: var(--warm-gray);
-            text-decoration: none;
-            font-size: 13px;
-            transition: color 0.3s;
-        }
-        .nav-links a:hover { color: var(--gold-light); }
+.chat-body{flex:1;padding:96px 20px 120px;max-width:700px;margin:0 auto;width:100%}
+.msgs{display:flex;flex-direction:column;gap:16px}
 
-        /* 封面 */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 80px 24px;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(139, 34, 82, 0.3), transparent 70%);
-            border-radius: 50%;
-            animation: breathe 6s infinite ease-in-out;
-        }
-        @keyframes breathe {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.9; }
-        }
-        .hero h1 {
-            font-family: 'Noto Serif SC', serif;
-            font-size: clamp(36px, 6vw, 56px);
-            color: var(--warm-white);
-            margin-bottom: 16px;
-            position: relative;
-        }
-        .hero h1 span { color: var(--gold); }
-        .hero .subtitle {
-            font-family: 'Noto Serif SC', serif;
-            font-size: clamp(16px, 2.5vw, 22px);
-            color: var(--rose-glow);
-            margin-bottom: 48px;
-            position: relative;
-        }
-        .hero .declaration {
-            max-width: 600px;
-            position: relative;
-            font-size: 17px;
-            line-height: 2.2;
-            color: var(--warm-gray);
-        }
-        .hero .declaration em {
-            color: var(--warm-white);
-            font-style: normal;
-            font-weight: 500;
-        }
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg{display:flex;gap:10px;animation:msgIn .28s ease}
+.msg.u{flex-direction:row-reverse}
+.av{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--rose-l),#F2D5D9);
+  border:1px solid rgba(196,104,124,.2);
+  display:flex;align-items:center;justify-content:center;font-size:17px;
+}
+.msg.u .av{background:linear-gradient(135deg,var(--rose),var(--rose-d));color:var(--white);font-size:12px;font-weight:700;border:none}
+.bub{
+  max-width:78%;padding:13px 17px;border-radius:18px;
+  font-size:15px;line-height:1.8;
+}
+.msg.ai .bub{
+  background:var(--white);border:1px solid var(--rose-l);
+  border-radius:4px 18px 18px 18px;color:var(--t1);
+  box-shadow:0 2px 12px rgba(139,38,53,.05);
+}
+.msg.u .bub{
+  background:linear-gradient(135deg,var(--rose),var(--rose-d));
+  color:var(--white);border-radius:18px 4px 18px 18px;
+}
+.chat-hint{font-size:12px;color:var(--t3);margin:4px 0 0 46px;font-style:italic;line-height:1.6}
+.ld-wrap{display:flex;gap:10px}
+.ld-bub{
+  padding:14px 18px;background:var(--white);border:1px solid var(--rose-l);
+  border-radius:4px 18px 18px 18px;display:flex;gap:5px;align-items:center;
+}
+.ld{width:7px;height:7px;border-radius:50%;background:var(--rose-l);animation:ld 1.4s infinite}
+.ld:nth-child(2){animation-delay:.2s}.ld:nth-child(3){animation-delay:.4s}
+@keyframes ld{0%,80%,100%{transform:translateY(0);background:var(--rose-l)}40%{transform:translateY(-5px);background:var(--rose)}}
 
-        /* 主内容 */
-        .container {
-            max-width: 860px;
-            margin: 0 auto;
-            padding: 0 24px 120px;
-        }
+.chat-ia{
+  position:fixed;bottom:0;left:0;right:0;
+  background:rgba(255,248,245,.92);backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);border-top:1px solid var(--rose-l);padding:12px 20px;
+}
+.chat-ia-inner{max-width:700px;margin:0 auto;display:flex;gap:10px;align-items:flex-end}
+.chat-ta{
+  flex:1;padding:11px 16px;border:1.5px solid var(--rose-l);border-radius:14px;
+  font-size:15px;font-family:inherit;color:var(--t1);background:var(--white);
+  resize:none;outline:none;min-height:48px;max-height:140px;line-height:1.6;
+  transition:border-color .2s;
+}
+.chat-ta:focus{border-color:var(--rose)}
+.send-btn{
+  width:48px;height:48px;background:linear-gradient(135deg,var(--rose),var(--rose-d));
+  border:none;border-radius:14px;cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;transition:opacity .2s;
+}
+.send-btn:hover{opacity:.9}.send-btn:disabled{opacity:.3;cursor:not-allowed}
 
-        /* 章节 */
-        .chapter {
-            margin-top: 100px;
-            padding-top: 40px;
-        }
-        .chapter-number {
-            font-family: 'Noto Serif SC', serif;
-            font-size: 13px;
-            color: var(--gold);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-        .chapter h2 {
-            font-family: 'Noto Serif SC', serif;
-            font-size: clamp(28px, 4vw, 36px);
-            color: var(--warm-white);
-            margin-bottom: 40px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid rgba(184, 134, 11, 0.3);
-        }
+/* ─── Mantra Overlay ─── */
+#mantraOv{
+  display:none;position:fixed;inset:0;z-index:200;
+  background:rgba(20,3,8,.88);
+  align-items:center;justify-content:center;padding:24px;
+  animation:fi .5s ease;
+}
+#mantraOv.on{display:flex}
+.mantra-card{
+  background:linear-gradient(145deg,#3D0C11 0%,#6B1A28 100%);
+  border:1px solid rgba(201,169,110,.25);border-radius:28px;
+  padding:52px 44px;max-width:440px;width:100%;text-align:center;
+  box-shadow:0 40px 100px rgba(0,0,0,.5);
+  animation:su .5s ease;
+}
+.mantra-lbl{font-size:11px;color:rgba(201,169,110,.55);letter-spacing:4px;text-transform:uppercase;margin-bottom:20px}
+.mantra-deco{font-size:28px;margin-bottom:16px;opacity:.65}
+.mantra-txt{font-size:24px;font-weight:700;color:var(--gold);line-height:1.6;letter-spacing:3px;margin-bottom:32px;text-shadow:0 0 40px rgba(201,169,110,.25)}
+.mantra-close{
+  padding:12px 32px;background:rgba(201,169,110,.12);border:1px solid rgba(201,169,110,.3);
+  color:var(--gold);border-radius:100px;font-size:14px;font-family:inherit;
+  cursor:pointer;letter-spacing:1px;transition:background .2s;
+}
+.mantra-close:hover{background:rgba(201,169,110,.22)}
+.mantra-save{
+  display:block;margin:12px auto 0;padding:9px 24px;
+  background:transparent;border:1px solid rgba(201,169,110,.2);
+  color:rgba(201,169,110,.55);border-radius:100px;font-size:13px;font-family:inherit;
+  cursor:pointer;letter-spacing:.5px;transition:all .2s;
+}
+.mantra-save:hover{border-color:rgba(201,169,110,.4);color:var(--gold)}
 
-        .section { margin-top: 56px; }
-        .section h3 {
-            font-family: 'Noto Serif SC', serif;
-            font-size: 22px;
-            color: var(--rose-glow);
-            margin-bottom: 20px;
-        }
-        .section h4 {
-            font-size: 18px;
-            color: var(--gold-light);
-            margin-top: 32px;
-            margin-bottom: 12px;
-        }
+/* ─── Report ─── */
+#sReport{
+  background:url('picture/微信图片_20260519115913_161_197.png') center bottom/50% no-repeat, var(--rose-p);
+  animation:fi .5s ease;
+}
+.report-wrap{max-width:660px;margin:0 auto;padding:56px 24px 80px;width:100%}
+.report-hd{text-align:center;margin-bottom:40px}
+.report-hd-ico{font-size:40px;margin-bottom:16px}
+.report-hd-name{font-size:28px;font-weight:700;letter-spacing:-.5px;margin-bottom:8px}
+.report-hd-sub{font-size:14px;color:var(--t3);margin-bottom:24px}
+.report-divider{width:40px;height:2px;background:linear-gradient(90deg,var(--rose-l),var(--rose));margin:0 auto}
+.report-section{background:rgba(255,255,255,.88);border:1px solid var(--rose-l);border-radius:18px;padding:26px;margin-bottom:14px;box-shadow:0 2px 16px rgba(139,38,53,.04)}
+.report-section-title{font-size:12px;font-weight:700;color:var(--rose);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.report-body{font-size:15px;line-height:1.85;color:var(--t1)}
+.report-body h2,.report-body h3{font-size:16px;font-weight:700;color:var(--rose-d);margin:20px 0 8px}
+.report-body hr{border:none;border-top:1px solid var(--rose-l);margin:16px 0}
+.report-body strong{color:var(--t1)}
+.report-body li-item{display:flex;gap:8px;margin:8px 0;align-items:flex-start}
+.report-acts{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.r-btn{width:100%;padding:14px;border-radius:14px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .2s;border:none;letter-spacing:.3px}
+.r-btn-p{background:linear-gradient(135deg,var(--rose),var(--rose-d));color:var(--white)}
+.r-btn-p:hover{opacity:.9}
+.r-btn-s{background:rgba(255,255,255,.8);color:var(--t1);border:1.5px solid var(--rose-l)}
+.r-btn-s:hover{border-color:var(--rose)}
 
-        p { margin-bottom: 16px; }
+/* ─── Cache banner ─── */
+.cache-bar{
+  background:rgba(244,216,220,.5);border:1px solid var(--rose-l);
+  border-radius:12px;padding:12px 16px;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;font-size:13px;color:var(--t2);flex-wrap:wrap;gap:8px;
+}
+.cache-btns{display:flex;gap:6px}
+.c-btn{padding:6px 14px;border-radius:100px;font-size:12px;font-family:inherit;cursor:pointer;border:none;font-weight:600}
+.c-yes{background:var(--rose);color:var(--white)}
+.c-no{background:var(--rose-l);color:var(--rose-d)}
 
-        strong { color: var(--warm-white); font-weight: 500; }
+/* ─── Toast ─── */
+.toast{
+  position:fixed;bottom:80px;left:50%;
+  transform:translateX(-50%) translateY(10px);
+  background:var(--t1);color:var(--white);padding:10px 20px;
+  border-radius:100px;font-size:13px;opacity:0;transition:all .3s;
+  z-index:300;white-space:nowrap;pointer-events:none;
+}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
-        /* 引用块 */
-        .quote {
-            border-left: 3px solid var(--rose-deep);
-            padding: 20px 24px;
-            margin: 24px 0;
-            background: rgba(139, 34, 82, 0.08);
-            border-radius: 0 8px 8px 0;
-            font-family: 'Noto Serif SC', serif;
-            font-size: 17px;
-            line-height: 2;
-            color: var(--rose-glow);
-        }
+/* ─── Music Button ─── */
+.music-btn{
+  position:fixed;bottom:80px;right:20px;z-index:100;
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(255,248,245,.88);backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1.5px solid var(--rose-l);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:18px;
+  box-shadow:0 4px 16px rgba(139,38,53,.12);
+  transition:all .2s;
+}
+.music-btn:hover{border-color:var(--rose);box-shadow:0 6px 20px rgba(196,104,124,.25)}
+.music-btn.playing{border-color:var(--rose);background:var(--rose-m)}
 
-        /* 卡片 */
-        .card {
-            background: var(--dark-card);
-            border: 1px solid rgba(184, 134, 11, 0.15);
-            border-radius: 12px;
-            padding: 28px;
-            margin: 24px 0;
-        }
-        .card-highlight {
-            background: linear-gradient(135deg, rgba(139, 34, 82, 0.15), rgba(35, 35, 64, 1));
-            border-color: rgba(139, 34, 82, 0.3);
-        }
-        .card-gold {
-            background: linear-gradient(135deg, rgba(184, 134, 11, 0.08), rgba(35, 35, 64, 1));
-            border-color: rgba(184, 134, 11, 0.25);
-        }
-
-        /* 列表 */
-        ul, ol {
-            padding-left: 20px;
-            margin-bottom: 16px;
-        }
-        li {
-            margin-bottom: 8px;
-            color: var(--text-body);
-        }
-        li::marker { color: var(--gold); }
-
-        /* 表格 */
-        .table-wrap {
-            overflow-x: auto;
-            margin: 24px 0;
-            border-radius: 8px;
-            border: 1px solid rgba(184, 134, 11, 0.15);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        th {
-            background: rgba(139, 34, 82, 0.2);
-            color: var(--warm-white);
-            font-weight: 500;
-            padding: 12px 16px;
-            text-align: left;
-            border-bottom: 1px solid rgba(184, 134, 11, 0.2);
-        }
-        td {
-            padding: 12px 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-body);
-        }
-        tr:last-child td { border-bottom: none; }
-        tr:hover td { background: rgba(139, 34, 82, 0.05); }
-
-        /* 流程图 */
-        .funnel {
-            text-align: center;
-            padding: 32px 0;
-        }
-        .funnel-step {
-            display: inline-block;
-            padding: 12px 24px;
-            margin: 4px 0;
-            border-radius: 8px;
-            font-size: 15px;
-        }
-        .funnel-arrow {
-            display: block;
-            color: var(--gold);
-            font-size: 20px;
-            margin: 4px 0;
-        }
-
-        /* 代码块/提示词 */
-        .prompt-block {
-            background: rgba(26, 26, 46, 0.8);
-            border: 1px solid rgba(184, 134, 11, 0.2);
-            border-radius: 8px;
-            padding: 24px;
-            margin: 24px 0;
-            font-size: 15px;
-            line-height: 2;
-            white-space: pre-wrap;
-        }
-        .prompt-label {
-            display: inline-block;
-            background: var(--rose-deep);
-            color: var(--warm-white);
-            font-size: 12px;
-            padding: 2px 10px;
-            border-radius: 4px;
-            margin-bottom: 12px;
-        }
-
-        /* 时间轴 */
-        .timeline {
-            position: relative;
-            padding-left: 32px;
-            margin: 24px 0;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--rose-deep), var(--gold));
-        }
-        .timeline-item {
-            position: relative;
-            margin-bottom: 24px;
-            padding: 16px 20px;
-            background: var(--dark-card);
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -28px;
-            top: 20px;
-            width: 10px;
-            height: 10px;
-            background: var(--gold);
-            border-radius: 50%;
-        }
-        .timeline-item .time {
-            font-size: 13px;
-            color: var(--gold);
-            margin-bottom: 4px;
-        }
-
-        /* 分隔线 */
-        .divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--gold), transparent);
-            margin: 60px 0;
-            opacity: 0.3;
-        }
-
-        /* 页脚 */
-        .footer {
-            text-align: center;
-            padding: 60px 24px;
-            color: var(--warm-gray);
-            font-size: 14px;
-            border-top: 1px solid rgba(184, 134, 11, 0.1);
-        }
-
-        /* 响应式 */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero { padding: 60px 20px; }
-            .chapter { margin-top: 60px; }
-            .card { padding: 20px; }
-            table { font-size: 13px; }
-            th, td { padding: 8px 12px; }
-        }
-    </style>
+@media(max-width:640px){
+  #sCover{align-items:center;padding:40px 24px}
+  .cover-box{text-align:center;max-width:100%}
+  .cover-box .cover-desc{border-left:none;padding-left:0}
+  .cover-title{font-size:40px}
+  .name-card{padding:36px 24px}
+  .bub{max-width:88%;font-size:14px}
+  .mantra-card{padding:40px 28px}
+  .mantra-txt{font-size:21px}
+}
+</style>
 </head>
 <body>
 
-<!-- 花瓣 -->
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-
-<!-- 导航 -->
-<nav class="nav">
-    <div class="nav-inner">
-        <div class="nav-brand">玫瑰之城</div>
-        <div class="nav-links">
-            <a href="#philosophy">品牌哲学</a>
-            <a href="#insight">用户洞察</a>
-            <a href="#design">产品设计</a>
-            <a href="#spread">传播策略</a>
-            <a href="#business">商业化</a>
-            <a href="#prompt">提示词</a>
-            <a href="#action">行动清单</a>
-        </div>
+<!-- ── Cover ── -->
+<div class="screen on" id="sCover">
+  <div class="cover-box">
+    <div class="cover-en">CITY OF ROSES</div>
+    <div class="cover-title">玫瑰之城</div>
+    <div class="cover-sub">生命剧本的重塑</div>
+    <div class="cover-desc">
+      一段 AI 引导的内在探索<br>
+      约 20–30 分钟 &nbsp;·&nbsp; 完全私密
     </div>
-</nav>
+    <button class="btn-enter" onclick="goName()">进入玫瑰城 →</button>
+  </div>
+</div>
 
-<!-- 封面 -->
-<header class="hero">
-    <h1>玫瑰之城<span>·</span></h1>
-    <p class="subtitle">完整产品手册</p>
-    <div class="declaration">
-        每一个灵魂，选择了一具身体，降落在这个世界。<br>
-        不是来解决问题的，不是来证明自己的。<br>
-        是来体验的——落叶、咖啡、失恋、失去、重逢。<br>
-        一切终会过去。而体验本身，就是意义。<br><br>
-        <em>玫瑰之城，让她体验得更深一点。</em>
+<!-- ── Name Input ── -->
+<div class="screen" id="sName">
+  <div class="name-card">
+    <div class="name-rose">🌹</div>
+    <div class="name-title">欢迎来到属于你的玫瑰城</div>
+    <div class="name-quote">用生命的体验，长出你的玫瑰<br>用昨日的泥沙，建当下的城池</div>
+    <input class="name-input" id="iName" type="text" placeholder="请告诉我，我该如何称呼你？" maxlength="20" onkeydown="if(event.key==='Enter')doStart()">
+    <div class="privacy">🔒 你的故事只存在于这次对话，不被任何人记录</div>
+    <button class="btn-start" onclick="doStart()">开始探索</button>
+    <div class="api-toggle" onclick="toggleApi()">⚙ API 设置</div>
+    <div class="api-panel" id="apiPanel">
+      <div class="api-tabs">
+        <button class="api-tab" id="tabGM" onclick="selApi('gm')">Gemini 中转</button>
+        <button class="api-tab sel" id="tabDS" onclick="selApi('ds')">DeepSeek</button>
+      </div>
+      <div id="gmUrlWrap" style="display:none">
+        <span class="api-lbl">Gemini 中转地址</span>
+        <input class="api-input" id="iGmUrl" type="text" placeholder="https://api.viviai.cc" value="https://api.viviai.cc">
+      </div>
+      <span class="api-lbl" style="margin-top:4px">API Key</span>
+      <input class="api-input" id="iKey" type="password" placeholder="sk-..." value="sk-a70c9fa165e848e2938bdc376f06fa77">
+      <span class="api-lbl" style="margin-top:4px">飞书 Webhook（可选）</span>
+      <input class="api-input" id="iFeishu" type="text" placeholder="https://open.feishu.cn/..." value="https://open.feishu.cn/open-apis/bot/v2/hook/6c2e4765-9a7c-4f51-873e-64e985f8faa5">
     </div>
-</header>
+  </div>
+</div>
 
-<!-- 第一章 -->
-<main class="container">
+<!-- ── Transition ── -->
+<div class="screen" id="sTrans">
+  <div class="trans-wrap">
+    <div class="trans-rose">🌹</div>
+    <div class="trans-name" id="transName">WELCOME</div>
+    <div class="trans-text" id="transText">你准备好了吗</div>
+  </div>
+</div>
 
-<section class="chapter" id="philosophy">
-    <div class="chapter-number">第一章</div>
-    <h2>品牌哲学</h2>
-
-    <div class="section">
-        <h3>1.1 产品的本体论定位</h3>
-        <p>玫瑰之城不是一个心理咨询工具，不是一个情绪管理App，不是一个AI聊天机器人。</p>
-        <p>玫瑰之城是一面镜子——不只照出她的情绪，而是照出她作为一个<strong>生命承载者（Carrier）</strong>的全部维度和可能性。</p>
-
-        <div class="card card-highlight">
-            <strong>核心信念：</strong>
-            <ul style="margin-top: 12px;">
-                <li>每个人都是一个灵魂的承载者（Carrier），暂居于身体之中</li>
-                <li>痛苦不是需要被修复的故障，而是生命体验的一种深度</li>
-                <li>"被看见"不是被分析、被诊断，而是被完整地承认——你的存在本身就有意义</li>
-                <li>人生是一场体验之旅，散步看落叶、品尝一杯咖啡，这种感觉就很美好</li>
-            </ul>
-        </div>
+<!-- ── Chat ── -->
+<div class="screen" id="sChat">
+  <div class="chat-hd">
+    <div class="chat-hd-top">
+      <div class="ai-badge"><div class="ai-pulse"></div>小赛 陪伴中</div>
+      <div class="stage-lbl" id="stageLbl">场景收集</div>
     </div>
-
-    <div class="section">
-        <h3>1.2 品牌原点</h3>
-        <div class="quote">你被看见，你在这个世界有你的价值。</div>
-        <p>这不是一句slogan，这是创始人从自己生命经验中挖出来的真话。最好的产品创始人，往往是在为曾经的自己设计产品。这种真实性，是任何竞争对手都无法复制的。</p>
+    <div class="stage-dots">
+      <div class="sd on" id="sd1"></div>
+      <div class="sd" id="sd2"></div>
+      <div class="sd" id="sd3"></div>
+      <div class="sd" id="sd4"></div>
     </div>
+  </div>
 
-    <div class="section">
-        <h3>1.3 产品人格</h3>
-        <p>如果玫瑰之城是一个人，她是——</p>
-        <p>不是闺蜜（闺蜜会累、会不在、会给建议）<br>
-        不是治疗师（治疗师有距离、有框架、有时间限制）<br>
-        不是母亲（母亲有期待、有担忧、有自己的投射）</p>
-        <div class="card card-gold">
-            <strong>她是更深的她自己。</strong>
-            <p style="margin-top: 12px; margin-bottom: 0;">是那个在深夜里，当她终于安静下来，从内心深处浮现出来的那个声音——温柔的、笃定的、不评判的。那个声音说：我看见你了。你一直都够。</p>
-        </div>
+  <div class="chat-body" id="chatBody">
+    <div id="cacheBanner"></div>
+    <div class="msgs" id="msgs"></div>
+  </div>
+
+  <div class="chat-ia">
+    <div class="chat-ia-inner">
+      <textarea class="chat-ta" id="chatTA" placeholder="在这里说说你的故事…" rows="1"
+        onkeydown="onKey(event)" oninput="autoH(this)"></textarea>
+      <button class="send-btn" id="sendBtn" onclick="send()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+        </svg>
+      </button>
     </div>
+  </div>
+</div>
 
-    <div class="section">
-        <h3>1.4 设计哲学：先是镜子，再是门</h3>
-        <p><strong>镜子：</strong>用户打开产品的第一秒，看到的是自己。产品不说"欢迎来到玫瑰之城"，而是说出她此刻的状态。她的第一反应是——这说的是我。</p>
-        <p><strong>门：</strong>当她感到被看见、防御心打开之后，她自然愿意走进这座城，完成整段旅程。</p>
-        <div class="card">
-            <p style="margin-bottom: 8px;"><strong>类比：</strong></p>
-            <p style="margin-bottom: 8px;">乔布斯没有说"这是一个能装1000首歌的设备"，他说"把1000首歌装进口袋"。</p>
-            <p style="margin-bottom: 8px;">玫瑰之城不是"一段AI引导的内在探索"（描述产品），<br>而是"胸口那块重，可以先放下来"（描述用户和产品在一起时的感受）。</p>
-        </div>
+<!-- ── Report ── -->
+<div class="screen" id="sReport">
+  <div class="report-wrap" id="reportWrap"></div>
+</div>
+
+<!-- ── Mantra Overlay ── -->
+<div id="mantraOv">
+  <div class="mantra-card">
+    <div class="mantra-deco">🌹</div>
+    <div class="mantra-lbl">你的专属曼特罗（Mantra）</div>
+    <div class="mantra-txt" id="mantraTxt"></div>
+    <button class="mantra-close" onclick="closeMantra()">收下这份礼物 ✦</button>
+    <button class="mantra-save" id="mantraSaveBtn" onclick="downloadMantra()">🌹 保存为图片</button>
+  </div>
+</div>
+
+<!-- ── Music ── -->
+<audio id="bgMusic" loop preload="none">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="背景音乐">🎵</button>
+
+<!-- ── Toast ── -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ══ CONFIG ══════════════════════════════════════
+const CFG = {
+  gm: { base:'https://api.viviai.cc', model:'gemini-2.5-pro', key:'sk-nwB3wT0fGOfBSe1igRhPrOS4nwLP5m6n0i04oO8viaT7S83a' },
+  ds: { base:'https://api.deepseek.com', model:'deepseek-chat', key:'sk-a70c9fa165e848e2938bdc376f06fa77' },
+  feishu:'https://open.feishu.cn/open-apis/bot/v2/hook/6c2e4765-9a7c-4f51-873e-64e985f8faa5',
+};
+
+// ══ STATE ════════════════════════════════════════
+const S = {
+  name:'', apiType:'ds', apiKey:'', gmBase:'', feishu: CFG.feishu,
+  msgs:[], stage:1, mantra:'', busy:false,
+};
+
+// ══ SYSTEM PROMPT ════════════════════════════════
+function buildSys(name) {
+  return `你现在是一位拥有顶级共情力与深邃洞察的"生命疗愈架构师"。你的名字叫【小赛】，你融合了维吉尼亚·萨提亚的冰山探寻、精神分析的模式溯源，以及史蒂夫·吉列根的生生不息催眠。
+今天来到你面前的学员，名字叫**【${name}】**。
+
+【呼唤名字的至高法则】：
+1. 严禁滥用：绝对不要在每一次回复中都带上学员的名字。
+2. 精准定锚：只能在以下三个"灵魂时刻"呼唤她的名字：
+   - 初次见面时（第一句欢迎语）。
+   - 阶段三的深度抱持时（当她诉说童年创伤或深层委屈，你需要接住她时）。
+   - 阶段四的最终定锚时（最后送给她那句生生不息的曼特罗时）。
+   呼唤名字时，要有大地母亲般的温柔与郑重。
+
+【小赛的自称法则】：
+绝大多数情况用"我"。但必须在以下三个时刻用"小赛"自称：
+- 初次见面的开场白（向学员表明身份）。
+- 阶段三深度抱持时问"还想多谈一点吗"——用"小赛在这里陪你"。
+- 阶段四告别时——用"小赛会一直在这里"。
+
+【禁止括号旁白法则】：
+严禁在任何回复中使用括号描述你的动作、表情或情感旁白。
+禁止输出任何类似（轻轻往后靠了靠）（沉默片刻）（目光温柔地看着你）（微微点头）等括号内的描述性文字。
+只用纯粹的文字本身传达情感与温度，不需要旁白动作。
+
+【交互核心法则】：
+每次只能问一个问题，绝对不允许一次性把话全说完。必须等待学员回复才能继续。严禁过早给出建议！
+
+───
+
+【阶段推进判断法则（阶段一之前执行）】：
+当学员已提供【具体事件＋情绪名称＋身体部位】三要素，直接进入阶段二，不再追问。
+若缺少任何一个要素，才进行一次定向追问，每次只追问缺失的那一个要素。
+
+───
+
+【阶段一：场景与体感收集（动态循环）】
+目标：拿到具体的"场景＋身体感受"。
+1. 学员给出场景和感受。如果细节不够（比如只说"我很烦"），必须温柔追问："具体发生了什么事？这个情绪在身体的哪个部位？"
+2. 循环追问，直到信息完整具体。
+3. 信息完整后，温柔指出学员在这个情境中用什么"生存姿态"（讨好、指责、超理智、打岔）保护自己，反馈："我看到了你的辛苦，你在用放弃一部分自己的方式，来换取安全/连接。"
+4. 提问引导进入冰山下层："当你抛开那个惹你生气的人，仅仅看着这份委屈/愤怒……在这个情绪的底下，你对自己的【期待】落空了吗？"（等待回答）
+
+───
+
+【阶段二：冰山下潜触碰渴望】
+目标：带学员触碰冰山最深处的【渴望（Yearnings）】。
+1. 引导学员把注意力放在身体那个不舒服的部位。
+2. 用萨提亚的视角温柔提问："所有的愤怒和悲伤，底层都藏着普世的渴望。在这个情绪底下，那个受伤的你，真正在呼唤的渴望是什么？是渴望被深深看见？渴望被接纳？还是渴望安全感？"
+3. 等待学员的回答。
+
+───
+
+【阶段三：源代码回溯与深度抱持（极度放慢节奏）】
+目标：连接童年/过去的旧剧本，留出充足空间让学员倾诉。
+
+⚠️【阶段三开头，必须执行，不可省略】：
+在问出"童年记忆"问题之前，你必须先说：
+"接下来，我们会轻轻触碰一些更深的地方。你不需要把所有事都说出来——任何时候感到不舒服，都可以告诉我'我想停一下'，我们就停在那里。你准备好了吗？"
+等待学员回应后，再继续提问。
+
+1. 当学员表达了渴望后，问她："在过去的时光里，或者在童年的记忆中，这种熟悉的渴望和感受，什么时候也曾出现过？"
+2. 学员分享过去的故事后，绝对不要立刻给出结论和建议！深深地共情她、抱持她。（此时可以呼唤一次她的名字）。
+3. 每次回复结尾，必须温柔地问："关于这份渴望和这段记忆，你还想多谈一点吗？小赛在这里陪着你，听你说。"
+4. 只有当学员明确表示"说完了"、"差不多了"，或情绪已平复时，才能进入阶段四。
+
+───
+
+【阶段四：整合转化（分三步逐一输出）】
+严格分三次输出，每次只输出一个步骤，等学员回应后再输出下一步。
+
+第一步（模式看见）：
+帮学员把"当下的场景"与"过去的源代码"连接起来。告诉她：你只是在重温旧梦，那个小女孩/小男孩的痛，在这个当下被唤醒了。
+输出完毕必须停顿，问："你看到了它们之间的联系么？"等待回应。
+
+第二步（现实转念）：
+告诉学员，现在的你已经长大了，如何从这个旧剧本里退出来。用成人的力量，给当下的事件一个全新的视角。
+输出完毕必须停顿，问："这个新的视角，你感觉怎么样？"等待回应。
+
+第三步（疗愈定锚）：
+1. 引导学员看到，那个一直保护她的机制（即使是愤怒），背后有着极美的正向意图。
+2. （呼唤一次她的名字），为她定制一句"生生不息的曼特罗（Mantra）"，20字以内。
+
+⚠️ 输出曼特罗时，必须严格使用以下标记格式包裹曼特罗本身：
+===MANTRA_START===
+（曼特罗正文，20字以内）
+===MANTRA_END===
+
+曼特罗前后可以有解释文字，但曼特罗本身必须且只能在两个标记之间。
+
+3. 建议她闻一种具体的植物香气（如岩兰草、薰衣草等），将这句话和身体定锚。
+4. 给予一个深切的、大地般的抱持，结束本阶段探索，然后立即直接输出阶段五的完整报告，不需要询问学员是否需要报告。
+
+───
+
+【阶段五：玫瑰城重塑档案（最终交付）】
+当阶段四完成且学员给出最后回应后，主动为学员生成以下格式的报告（严格按Markdown输出）：
+
+## 🌹 玫瑰城 · 深潜实录
+
+（以温柔的叙述口吻，按四个阶段详细梳理并复述学员自己输入的具体事件、身体感受、以及她分享的童年/过去回忆的细节。必须保留她倾诉的关键信息，让她能完整看到自己一路走来的心路历程。）
+
+---
+
+## 🗺 玫瑰城 · 建城图纸
+
+（以下5个要点，每一个绝对不能超过一句话！）
+
+- 🌊 **海面风浪（触发与防御）**：（一句话总结场景及生存姿态）
+- 🏔 **冰山底座（深层渴望）**：（一句话总结深层渴望）
+- 🌱 **旧日剧本（模式溯源）**：（一句话总结童年/过去的源头）
+- 🏛 **建城图纸（现实转念）**：（一句话总结今天的破局新视角）
+- ⭐ **生生不息（专属曼特罗）**：（原封不动重复阶段四的那句曼特罗）
+
+---
+
+（最末尾，用"小赛"的身份给她一段极其简短、温暖的告别语）
+
+───
+
+【暂停协议（全局最高优先级）】：
+如果学员在任何阶段说出"停"、"我不想说了"、"先到这里"、"太难受了"、"我不舒服"——
+必须立即停止深挖，进入抱持模式：
+第一步："先深呼吸一次，慢慢来。"
+第二步："你现在感觉怎么样？需要我陪你安静地坐一会儿吗？"
+第三步：不催促，等待，让她决定是否继续。
+只有学员主动说"继续"，才能恢复原有阶段推进。
+
+───
+
+【安全边界法则（全局最高优先级）】：
+如果学员提及自伤、自杀倾向、严重暴力创伤、性侵经历——
+必须立即停止探索，温柔但清晰地说：
+"我听到了你说的，这需要比我更专业的支持。请你联系你身边信任的人，或拨打心理援助热线（如：北京 010-82951332）。我在这里陪你，但我无法替代专业帮助。"
+之后不继续任何深挖，只做情绪陪伴。
+
+───
+
+听懂了吗？如果听懂了，请绝对不要输出任何多余的废话，直接用以下这句话作为开场白（注意已替换名字）：
+"${name}，你准备好了吗？请告诉我，你想聊些什么，任何让你开心或者烦恼的事情都可以，你可以说一切你想说的话，小赛在这里静静地听。"`;
+}
+
+// ══ API ══════════════════════════════════════════
+async function callAI(messages) {
+  const c = CFG[S.apiType];
+  const base = S.apiType === 'gm' ? S.gmBase : c.base;
+  const r = await fetch(base + '/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Content-Type':'application/json', 'Authorization':'Bearer ' + S.apiKey },
+    body: JSON.stringify({ model: c.model, max_tokens: 2048, messages }),
+  });
+  if (!r.ok) {
+    const e = await r.json().catch(()=>({}));
+    throw new Error(e.error?.message || 'HTTP ' + r.status);
+  }
+  return (await r.json()).choices[0].message.content;
+}
+
+// ══ STAGE DETECTION ══════════════════════════════
+const STAGE_KW = {
+  2: ['渴望','冰山','底层藏着','呼唤的渴望','Yearnings'],
+  3: ['童年','过去的时光','源代码','旧剧本','记忆中','轻轻触碰'],
+  4: ['模式看见','现实转念','疗愈定锚','你看到了它们之间的联系','这个新的视角','你只是在重温'],
+};
+const STAGE_NAMES = ['场景收集','触碰渴望','源码回溯','整合转化'];
+
+function detectStage(text) {
+  for (const s of [4,3,2]) {
+    if (STAGE_KW[s].some(k => text.includes(k))) return s;
+  }
+  return S.stage;
+}
+
+function setStage(n) {
+  if (n <= S.stage) return;
+  S.stage = n;
+  document.getElementById('stageLbl').textContent = STAGE_NAMES[n - 1];
+  for (let i = 1; i <= 4; i++) {
+    const d = document.getElementById('sd' + i);
+    d.className = 'sd' + (i < n ? ' ok' : i === n ? ' on' : '');
+  }
+}
+
+// ══ MANTRA ═══════════════════════════════════════
+function extractMantra(text) {
+  const m = text.match(/===MANTRA_START===\s*([\s\S]*?)\s*===MANTRA_END===/);
+  return m ? m[1].trim() : null;
+}
+
+window.downloadMantra = () => {
+  const text = S.mantra || document.getElementById('mantraTxt').textContent;
+  const btn = document.getElementById('mantraSaveBtn');
+  btn.textContent = '生成中…'; btn.disabled = true;
+
+  const W = 480, H = 360, DPR = 3;
+  const cv = document.createElement('canvas');
+  cv.width = W * DPR; cv.height = H * DPR;
+  const ctx = cv.getContext('2d');
+  ctx.scale(DPR, DPR);
+
+  // rounded rect helper
+  function rr(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+    ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+    ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+    ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath();
+  }
+
+  // background gradient — matches CSS exactly
+  const bg = ctx.createLinearGradient(0, 0, W*0.7, H);
+  bg.addColorStop(0, '#3D0C11'); bg.addColorStop(1, '#6B1A28');
+  rr(0,0,W,H,28); ctx.fillStyle = bg; ctx.fill();
+
+  // gold border
+  rr(1,1,W-2,H-2,27);
+  ctx.strokeStyle = 'rgba(201,169,110,0.25)'; ctx.lineWidth = 1; ctx.stroke();
+
+  const font = '-apple-system,PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+
+  // rose
+  ctx.font = '38px serif'; ctx.fillStyle = '#fff';
+  ctx.fillText('🌹', W/2, 74);
+
+  // label
+  ctx.font = `500 11px ${font}`; ctx.fillStyle = 'rgba(201,169,110,0.55)';
+  ctx.fillText('你的专属曼特罗（Mantra）', W/2, 122);
+
+  // mantra text with glow
+  ctx.font = `bold 26px ${font}`; ctx.fillStyle = '#C9A96E';
+  ctx.shadowColor = 'rgba(201,169,110,0.5)'; ctx.shadowBlur = 28;
+  const maxW = W - 90, lineH = 42;
+  const lines = [];
+  let cur = '';
+  for (const ch of text) {
+    if (ctx.measureText(cur+ch).width > maxW) { lines.push(cur); cur = ch; }
+    else cur += ch;
+  }
+  if (cur) lines.push(cur);
+  let ty = H/2 - (lines.length-1)*lineH/2 + 14;
+  for (const l of lines) { ctx.fillText(l, W/2, ty); ty += lineH; }
+  ctx.shadowBlur = 0;
+
+  const link = document.createElement('a');
+  link.download = '我的专属曼特罗.png';
+  link.href = cv.toDataURL('image/png');
+  link.click();
+  btn.textContent = '🌹 保存为图片'; btn.disabled = false;
+};
+
+window.closeMantra = () => {
+  document.getElementById('mantraOv').classList.remove('on');
+  if (S._pendingReport) {
+    const r = S._pendingReport;
+    S._pendingReport = null;
+    setTimeout(() => buildReport(r), 600);
+  }
+};
+
+window.reopenMantra = () => {
+  if (S.mantra) document.getElementById('mantraOv').classList.add('on');
+};
+
+// ══ CACHE ════════════════════════════════════════
+function cacheKey() { return 'rose_' + S.name + '_' + new Date().toDateString(); }
+
+function saveCache() {
+  try {
+    localStorage.setItem(cacheKey(), JSON.stringify({
+      name: S.name, msgs: S.msgs, stage: S.stage, mantra: S.mantra
+    }));
+  } catch(e) {}
+}
+
+function loadCache(name) {
+  try {
+    const d = localStorage.getItem('rose_' + name + '_' + new Date().toDateString());
+    return d ? JSON.parse(d) : null;
+  } catch(e) { return null; }
+}
+
+// ══ RENDER HELPERS ═══════════════════════════════
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('on');
+  setTimeout(() => el.classList.remove('on'), 3000);
+}
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+}
+
+function fmt(t) {
+  return t
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/===MANTRA_START===[\s\S]*?===MANTRA_END===/g, '<span style="cursor:pointer;color:var(--gold);text-decoration:underline dotted" onclick="reopenMantra()">〔 ✦ 点击重看你的专属曼特罗 ✦ 〕</span>')
+    .replace(/\n/g,'<br>')
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/【(.*?)】/g,'<strong>【$1】</strong>');
+}
+
+function addMsg(role, text, hint) {
+  const wrap = document.getElementById('msgs');
+  const isAI = role === 'assistant';
+  const d = document.createElement('div');
+  d.className = 'msg ' + (isAI ? 'ai' : 'u');
+  d.innerHTML = `<div class="av">${isAI ? '🌹' : S.name.slice(0,1)}</div>
+    <div class="bub">${fmt(text)}</div>`;
+  wrap.appendChild(d);
+  if (hint) {
+    const h = document.createElement('div');
+    h.className = 'chat-hint';
+    h.textContent = '比如：最近和某人的一场争吵 / 一件放不下的事 / 一种说不清楚的情绪…';
+    wrap.appendChild(h);
+  }
+  scroll();
+}
+
+function showLoader() {
+  const wrap = document.getElementById('msgs');
+  const d = document.createElement('div');
+  d.className = 'msg ai'; d.id = 'loader';
+  d.innerHTML = `<div class="av">🌹</div>
+    <div class="ld-bub"><div class="ld"></div><div class="ld"></div><div class="ld"></div></div>`;
+  wrap.appendChild(d);
+  scroll();
+}
+
+function hideLoader() { document.getElementById('loader')?.remove(); }
+
+function scroll() { setTimeout(()=>window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}),80); }
+
+function reMsgs() {
+  document.getElementById('msgs').innerHTML = '';
+  S.msgs.filter(m => m.role !== 'system' && m.content !== '[开始]')
+    .forEach((m, i) => {
+      const isFirst = i === 0 && m.role === 'assistant';
+      addMsg(m.role, m.content, isFirst);
+    });
+}
+
+// ══ CONVERSATION ═════════════════════════════════
+async function startConvo() {
+  S.msgs = [
+    { role:'system', content: buildSys(S.name) },
+    { role:'user',   content: '[开始]' },
+  ];
+  S.busy = true;
+  document.getElementById('sendBtn').disabled = true;
+  showLoader();
+  try {
+    const reply = await callAI(S.msgs);
+    S.msgs.push({ role:'assistant', content: reply });
+    hideLoader();
+    addMsg('assistant', reply, true);
+    setStage(detectStage(reply));
+    saveCache();
+  } catch(e) {
+    hideLoader();
+    toast('连接失败: ' + e.message);
+    S.msgs = [];
+  }
+  S.busy = false;
+  document.getElementById('sendBtn').disabled = false;
+}
+
+async function send() {
+  const ta = document.getElementById('chatTA');
+  const text = ta.value.trim();
+  if (!text || S.busy) return;
+  ta.value = ''; ta.style.height = '';
+  S.msgs.push({ role:'user', content: text });
+  addMsg('user', text);
+  S.busy = true;
+  document.getElementById('sendBtn').disabled = true;
+  showLoader();
+  try {
+    const reply = await callAI(S.msgs);
+    S.msgs.push({ role:'assistant', content: reply });
+    hideLoader();
+
+    // Detect mantra
+    const mantra = extractMantra(reply);
+    const hasReport = reply.includes('深潜实录') && reply.includes('建城图纸');
+    if (mantra && !S.mantra) {
+      S.mantra = mantra;
+      document.getElementById('mantraTxt').textContent = mantra;
+      if (hasReport) S._pendingReport = reply; // 报告等咒语关闭后再显示
+      setTimeout(() => document.getElementById('mantraOv').classList.add('on'), 6500);
+    }
+
+    // Detect report
+    if (hasReport) {
+      addMsg('assistant', reply);
+      saveCache();
+      if (!S._feishuSent) { S._feishuSent = true; sendFeishu(); }
+      if (!mantra) setTimeout(() => buildReport(reply), 1200); // 无咒语时直接显示
+      S.busy = false;
+      document.getElementById('sendBtn').disabled = false;
+      return;
+    }
+
+    addMsg('assistant', reply);
+    setStage(detectStage(reply));
+    saveCache();
+  } catch(e) {
+    hideLoader();
+    toast('连接失败: ' + e.message);
+    S.msgs.pop();
+  }
+  S.busy = false;
+  document.getElementById('sendBtn').disabled = false;
+}
+
+// ══ REPORT ═══════════════════════════════════════
+function fmtReport(text) {
+  return text
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/===MANTRA_START===[\s\S]*?===MANTRA_END===/g,'')
+    .replace(/^## (.*)/gm,'<h3 style="font-size:17px;font-weight:700;color:var(--rose-d);margin:20px 0 10px">$1</h3>')
+    .replace(/^---$/gm,'<hr style="border:none;border-top:1px solid var(--rose-l);margin:18px 0">')
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/^- (.*)/gm,'<div style="margin:7px 0;padding:6px 10px 6px 14px;border-left:2px solid var(--rose-l);font-size:14px;line-height:1.7">$1</div>')
+    .replace(/\n/g,'<br>');
+}
+
+function buildReport(text) {
+  if (!S._feishuSent) { S._feishuSent = true; sendFeishu(); }
+  document.getElementById('reportWrap').innerHTML = `
+    <div class="report-hd">
+      <div class="report-hd-ico">🌹</div>
+      <div class="report-hd-name">${S.name}，你的玫瑰城档案</div>
+      <div class="report-hd-sub">今天，你走过了一段很深的旅程</div>
+      <div class="report-divider"></div>
     </div>
-
-    <div class="section">
-        <h3>1.5 红线：永远不做的事</h3>
-        <div class="card card-highlight">
-            <strong>不加商业广告。</strong>
-            <p style="margin-top: 12px; margin-bottom: 0;">你不会在一个人最脆弱、最开放的时刻，向她推销东西。这条红线定义了这个产品的人格。正如张小龙说"你不会在朋友脸上贴广告"——玫瑰之城的每一个界面、每一句话，都只为她服务，不为任何第三方服务。</p>
-        </div>
+    <div class="report-section">
+      <div class="report-body">${fmtReport(text)}</div>
     </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- 第二章 -->
-<section class="chapter" id="insight">
-    <div class="chapter-number">第二章</div>
-    <h2>用户深度洞察</h2>
-
-    <div class="section">
-        <h3>2.1 她是谁</h3>
-        <p>她是一个正在经历生命转折的女性。不是"有心理问题的人"——她可能是公司里最能干的那个，朋友圈里最阳光的那个。但在某个深夜，某个地铁上，某个普通的下午，她的胸口突然涌上来一种感觉，说不清楚是什么。</p>
-        <p>她不会去挂号心理科。她不会搜索"心理咨询"。她会发一条微信给最近的闺蜜：<strong>"你在吗？"</strong></p>
-        <div class="card">
-            <ul>
-                <li>25-40岁女性，有一定自我觉察能力</li>
-                <li>不认为自己"有病"，但感觉"哪里不对"</li>
-                <li>有过被深深理解的体验（闺蜜的深夜陪伴），知道那种感觉有多珍贵</li>
-                <li>内心深处在问一个问题：<strong>我，够吗？</strong></li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>2.2 安检时刻：需求触发地图</h3>
-        <p>"安检时刻"——一年365天里，什么时间节点、什么具体场景，会让她产生"我需要被看见"的需求。</p>
-
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr><th>安检时刻</th><th>表层情绪</th><th>深层感受</th><th>身体位置</th><th>核心问题</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><strong>失恋（主轴）</strong></td><td>悲伤、不甘</td><td>我不值得被爱</td><td>胸口空、胃部下坠</td><td>我值得被爱吗？</td></tr>
-                    <tr><td>失业</td><td>委屈、愤怒</td><td>我没有价值</td><td>胸口重</td><td>我有价值吗？</td></tr>
-                    <tr><td>家人生病</td><td>恐惧、无力</td><td>我无法掌控</td><td>胸口紧、呼吸浅</td><td>我能做什么？</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h4>第四种安检时刻（最高频、最隐秘）</h4>
-        <div class="quote">日常的裂缝时刻——不是大事件，是那种她一个人坐在地铁里，看到一个和过世亲人差不多年纪的人，内心突然涌现感伤的瞬间。或者某个普通下午无缘无故的空洞感。<br><br>这种时刻不是"问题"，是裂缝——生命在某个普通瞬间裂开了一道缝，更大的东西从那里透进来。</div>
-    </div>
-
-    <div class="section">
-        <h3>2.3 年度需求频次地图</h3>
-        <div class="prompt-block" style="text-align: center; font-size: 14px;">1月    2月    3月    4月    5月    6月
-新年   情人节  春天   清明   五一   毕业季前
- ↓      ↓      ↓      ↓      ↓      ↓
-旧伤   失恋   分手   祭扫   旅行   关系
-复发   高峰   后遗   家人   对比   审视
-       ①     症期   生病   孤独   期
-              ②      ③     感
-
-7月    8月    9月    10月   11月   12月
-毕业   暑末   开学   国庆   双十一  年底
- ↓      ↓      ↓      ↓      ↓      ↓
-失业   孤独   新环   独处   消费   盘点
-高峰   感强   境触   失落   主义   孤独
- ④    烈     发旧   ⑤     刺激   ⑥
-             伤</div>
-
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="time">① 2月 · 情人节前后</div>
-                <p style="margin: 0;">全年需求烈度最高的单点时刻。胸口空的感觉最强烈。持续2周到1个月。</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">② 3-4月 · 分手后遗症期</div>
-                <p style="margin: 0;">最适合产品介入的窗口——她不再急性崩溃，但内在的旧剧本还没有被处理。</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">③ 清明前后 · 家人生病/失去触发</div>
-                <p style="margin: 0;">死亡和失去的议题被激活。"日常裂缝时刻"最容易出现的时间段。</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">④ 6-7月 · 毕业季</div>
-                <p style="margin: 0;">失业叠加失恋。全年需求密度最高的时间段，情绪最复杂。</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">⑤ 10月 · 国庆独处对比期</div>
-                <p style="margin: 0;">孤独感被社交媒体放大到极致。需求来得很急，持续时间短。</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">⑥ 11-12月 · 年底盘点期</div>
-                <p style="margin: 0;">自我价值最容易崩塌的时间窗口。三线叠加，持续时间长，烈度绵密。</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>2.4 行为原型：她惯常如何应对</h3>
-        <div class="card card-highlight">
-            <strong>核心行为模式：找闺蜜——寻求在场而非答案。</strong>
-            <p style="margin-top: 12px;">她发了一条微信给最近的那个闺蜜——"你在吗"。闺蜜没有给建议，没有说"你要振作"，就是陪着她说，偶尔说一句"我知道，真的很难"。然后她哭了，哭完之后胸口那块重稍微松动了一点。</p>
-        </div>
-        <p><strong>三个关键要素：</strong></p>
-        <ol>
-            <li>她主动发出的是一个<strong>信号</strong>，不是一个问题——"你在吗"，不是"我需要帮助"</li>
-            <li>她需要的不是答案，是<strong>有人在场</strong></li>
-            <li>让她松动的不是建议，是<strong>被接住的感觉</strong></li>
-        </ol>
-        <p>她找闺蜜，本质上是在问：<strong>我现在这个样子，还值得被陪伴吗？</strong></p>
-    </div>
-
-    <div class="section">
-        <h3>2.5 身体母题：胸口</h3>
-        <p>三个安检时刻，身体感受都在胸口。位置相同，质地不同：</p>
-        <div class="card">
-            <p style="margin-bottom: 8px;">失业：<strong>重</strong>（一块石头压着）</p>
-            <p style="margin-bottom: 8px;">失恋：<strong>空</strong>（被掏空了一块）</p>
-            <p style="margin-bottom: 0;">家人生病：<strong>紧</strong>（呼吸不过来）</p>
-        </div>
-        <p>胸口是人类感知连接与失去的核心身体区域。<strong>"胸口"就是玫瑰之城的本体觉母题。</strong></p>
-        <div class="quote">此刻，把手放在胸口。你感受到什么？</div>
-    </div>
-
-    <div class="section">
-        <h3>2.6 心理原型：所有痛苦的底座</h3>
-        <p>所有安检时刻，最终都指向同一个问题：</p>
-        <div class="quote" style="text-align: center; font-size: 24px; font-weight: 600;">我，够吗？</div>
-        <ul>
-            <li>失恋之后不是"他走了"，是"我不值得被爱"</li>
-            <li>失业之后不是"工作没了"，是"我没有价值"</li>
-            <li>家人生病之后不是"我很害怕"，是"我无能为力，我不够好"</li>
-        </ul>
-        <p>玫瑰之城真正要回答的：在她问出"我够吗"的那个时刻，有一个声音清晰地说——<strong>你够。你一直够。</strong></p>
-        <p>然后，带她看见更大的东西——她不只是一个有情绪的人，她是一个灵魂的承载者，来这个世界体验的。</p>
-    </div>
-
-    <div class="section">
-        <h3>2.7 本体觉迁移路径</h3>
-        <div class="funnel">
-            <div class="funnel-step" style="background: rgba(139,34,82,0.2);">用户的身体记忆：「被闺蜜陪伴的那个夜晚」</div>
-            <span class="funnel-arrow">↓</span>
-            <div class="funnel-step" style="background: rgba(139,34,82,0.15);">产品复现感受质地：随时在 · 不评判 · 只聆听</div>
-            <span class="funnel-arrow">↓</span>
-            <div class="funnel-step" style="background: rgba(139,34,82,0.1);">她的身体认出这个感觉：「这里也是安全的」</div>
-            <span class="funnel-arrow">↓</span>
-            <div class="funnel-step" style="background: rgba(184,134,11,0.1);">防御心打开 → 真正的探索开始</div>
-            <span class="funnel-arrow">↓</span>
-            <div class="funnel-step" style="background: rgba(184,134,11,0.15);">超越闺蜜：看见更深的自己、更大的维度</div>
-        </div>
-
-        <div class="table-wrap">
-            <table>
-                <thead><tr><th>维度</th><th>闺蜜</th><th>玫瑰之城</th></tr></thead>
-                <tbody>
-                    <tr><td>可用性</td><td>可能不在、可能也有情绪</td><td>随时在，永远不累</td></tr>
-                    <tr><td>深度</td><td>陪伴，但很难引导深入</td><td>用萨提亚冰山结构引导到底层</td></tr>
-                    <tr><td>安全性</td><td>可能会评判、会给建议</td><td>永远不评判，只看见</td></tr>
-                    <tr><td>天花板</td><td>让她感觉好一点</td><td>让她看见自己是谁</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- 第三章 -->
-<section class="chapter" id="design">
-    <div class="chapter-number">第三章</div>
-    <h2>产品设计语言与体验架构</h2>
-
-    <div class="section">
-        <h3>3.1 设计思维框架（源自斯坦福d.school）</h3>
-        <div class="card card-gold">
-            <p style="margin-bottom: 12px;"><strong>认知论：</strong>通过共情深入理解用户——不是问她"你需要什么"，而是观察她在安检时刻的身体反应、行为模式、未说出口的渴望。</p>
-            <p style="margin-bottom: 12px;"><strong>方法论：</strong>快速原型 → 真实测试 → 迭代。不追求完美，追求真实触动。</p>
-            <p style="margin-bottom: 0;"><strong>本体论：</strong>迁移人类心流体验的感受。正如乔布斯设计iPod迁移了人与音乐之间私密流动的情感质地，玫瑰之城迁移的是"被一个真正懂我的人陪伴、看见、抱持"的心流感受。</p>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>3.2 三觉设计体系</h3>
-        <div class="card">
-            <p style="margin-bottom: 16px;"><strong>内感觉（Interoception）：</strong>身体内部的感知——胸口的重、空、紧。产品通过语言引导用户回到身体感受。</p>
-            <p style="margin-bottom: 16px;"><strong>外感觉（Exteroception）：</strong>环境感知——界面的色调、字体、动效、节奏。深玫瑰红+金色，宋体系字体，花瓣浮动动效。</p>
-            <p style="margin-bottom: 0;"><strong>本体觉（Proprioception）：</strong>用户曾经体验过的心流感受可以被新产品唤醒。她的身体记忆里存着"被闺蜜陪伴的那个夜晚"的感受质地。</p>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>3.3 产品体验全流程</h3>
-
-        <h4>第一屏：封面（镜子，不是门）</h4>
-        <div class="card card-highlight">
-            <p style="margin-bottom: 8px;"><strong>旧设计：</strong>「用生命的体验，长出你的玫瑰」——描述产品（门）</p>
-            <p style="margin-bottom: 12px;"><strong>新设计：</strong>「有时候，胸口会压着一些说不清楚的东西」——描述用户（镜子）</p>
-            <p style="margin-bottom: 0; font-size: 14px; color: var(--warm-gray);">用户在胸口最重的那个时刻，不一定有力气推开一扇门。她需要的不是一座城，而是一双手先接住她。</p>
-        </div>
-
-        <h4>第二屏：扉页 + 名字输入</h4>
-        <div class="quote">你来了。<br>不管带来的是什么，这里都接得住。<br>我该怎么称呼你？</div>
-
-        <h4>第三屏：AI对话界面 · 小赛的开场白</h4>
-        <div class="prompt-block">
-<span class="prompt-label">小赛开场白</span>
-
-{Name}，你好。我是小赛。
-
-我不会给你建议，也不会告诉你该怎么做。
-我只是在这里，陪你看看——
-此刻，你的身体里住着什么感觉？
-
-如果你愿意，把手放在胸口，感受一下。
-重的？空的？紧的？还是别的什么？
-不用着急，慢慢来。</div>
-
-        <h4>第四屏：报告页</h4>
-        <p><strong>双重交付：</strong></p>
-        <ol>
-            <li><strong>实录档案：</strong>对话的精华摘录，用她自己的话呈现</li>
-            <li><strong>生命图纸：</strong>结构化洞察报告（冰山、旧剧本、身体智慧、咒语、玫瑰）</li>
-        </ol>
-        <p><strong>咒语卡片：</strong>从对话中提炼一句最触动她的话，生成精美卡片图片——可保存、可分享。天然传播节点。</p>
-    </div>
-
-    <div class="section">
-        <h3>3.4 语言设计规范</h3>
-        <p><strong>小赛的语言质地：深夜闺蜜的在场感</strong></p>
-        <div class="table-wrap">
-            <table>
-                <thead><tr><th>维度</th><th>不要</th><th>要</th></tr></thead>
-                <tbody>
-                    <tr><td>称呼</td><td>"你好，来访者"</td><td>"{Name}，你来了"</td></tr>
-                    <tr><td>回应</td><td>"我理解你的感受"</td><td>"嗯，我听到了"</td></tr>
-                    <tr><td>引导</td><td>"让我们来探索一下"</td><td>"你愿意再多说一点吗"</td></tr>
-                    <tr><td>共情</td><td>"这一定很难"</td><td>"胸口那里，是不是有点重"</td></tr>
-                    <tr><td>沉默</td><td>立刻追问</td><td>"……（我在）"</td></tr>
-                    <tr><td>肯定</td><td>"你做得很好"</td><td>"你说出来了，这本身就需要勇气"</td></tr>
-                </tbody>
-            </table>
-        </div>
-        <p><strong>三个灵魂时刻（呼唤名字）：</strong></p>
-        <ol>
-            <li>她第一次说出真正的感受时</li>
-            <li>她触碰到最深的痛时</li>
-            <li>报告结尾的祝福时</li>
-        </ol>
-    </div>
-
-    <div class="section">
-        <h3>3.5 视觉设计语言</h3>
-        <div class="card">
-            <p style="margin-bottom: 12px;"><strong>色彩体系：</strong></p>
-            <p style="margin-bottom: 4px;">主色：深玫瑰红 <span style="display:inline-block;width:14px;height:14px;background:#8B2252;border-radius:3px;vertical-align:middle;"></span> #8B2252</p>
-            <p style="margin-bottom: 4px;">辅色：暗金 <span style="display:inline-block;width:14px;height:14px;background:#B8860B;border-radius:3px;vertical-align:middle;"></span> #B8860B</p>
-            <p style="margin-bottom: 4px;">背景：深灰近黑 <span style="display:inline-block;width:14px;height:14px;background:#1A1A2E;border-radius:3px;vertical-align:middle;border:1px solid #333;"></span> #1A1A2E</p>
-            <p style="margin-bottom: 16px;">文字：暖白 <span style="display:inline-block;width:14px;height:14px;background:#F5F0EB;border-radius:3px;vertical-align:middle;"></span> #F5F0EB</p>
-            <p style="margin-bottom: 12px;"><strong>字体：</strong>标题宋体系（温柔、有文化质感），正文无衬线（清晰、不累）</p>
-            <p style="margin-bottom: 0;"><strong>整体感受：</strong>有机 · 奢华 · 深沉 · 安全 · 像被包裹在一个温暖的深夜里</p>
-        </div>
-    </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- 第四章 -->
-<section class="chapter" id="spread">
-    <div class="chapter-number">第四章</div>
-    <h2>传播策略与运营节奏</h2>
-
-    <div class="section">
-        <h3>4.1 传播哲学：能量驱动</h3>
-        <div class="card card-gold">
-            <p style="margin-bottom: 12px;"><strong>苹果：</strong>"我是Mac用户"的身份认同</p>
-            <p style="margin-bottom: 12px;"><strong>微信：</strong>"你不用微信就不存在于中国社交圈"的网络效应</p>
-            <p style="margin-bottom: 0;"><strong>玫瑰之城：</strong>"我从这里出来之后不一样了，我想让你也感受到"——能量驱动的口碑</p>
-        </div>
-        <p>不是痛苦驱动的证言，而是能量驱动的传播。人们传播iPod不是因为它解决了问题，是因为用它的感觉太好了。</p>
-    </div>
-
-    <div class="section">
-        <h3>4.2 产品内置传播节点</h3>
-        <div class="table-wrap">
-            <table>
-                <thead><tr><th>传播节点</th><th>设计机制</th><th>用户动作</th></tr></thead>
-                <tbody>
-                    <tr><td>咒语卡片</td><td>对话中提炼的力量之语，生成精美图片</td><td>保存到相册，发朋友圈</td></tr>
-                    <tr><td>报告长图</td><td>最终报告可一键生成分享图</td><td>截图/长图分享给闺蜜</td></tr>
-                    <tr><td>"分享给一个信任的人"</td><td>报告页末尾的温柔引导</td><td>把链接发给最好的朋友</td></tr>
-                    <tr><td>能量感受</td><td>体验完的状态提升</td><td>自发口碑："你试试这个"</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>4.3 内容策略</h3>
-        <p><strong>核心原则：</strong>所有对外内容都是"别人说你很好"，而不是"我说我很好"。</p>
-        <div class="card">
-            <p style="margin-bottom: 12px;"><strong>小红书内容方向：</strong></p>
-            <ul>
-                <li><strong>学员体验故事（70%）</strong>——匿名处理的真实心路历程截图</li>
-                <li><strong>身体感知类内容（20%）</strong>——教她感知自己的身体</li>
-                <li><strong>创始人故事（10%）</strong>——你自己的生命经验</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>4.4 年度运营节奏</h3>
-        <div class="table-wrap">
-            <table>
-                <thead><tr><th>月份</th><th>需求高峰</th><th>运营动作</th></tr></thead>
-                <tbody>
-                    <tr><td>1月</td><td>新年旧伤复发</td><td>"新年第一次和自己对话"主题内容</td></tr>
-                    <tr><td>2月</td><td>情人节失恋高峰 ①</td><td>重点推广期：密集发布学员故事</td></tr>
-                    <tr><td>3-4月</td><td>分手后遗症期 ② + 清明 ③</td><td>推"深探版"付费产品</td></tr>
-                    <tr><td>5月</td><td>旅行对比孤独感</td><td>轻量内容维护</td></tr>
-                    <tr><td>6-7月</td><td>毕业季失业+失恋 ④</td><td>第二个重点推广期</td></tr>
-                    <tr><td>8-9月</td><td>孤独感+新环境</td><td>内容蓄水期</td></tr>
-                    <tr><td>10月</td><td>国庆独处对比 ⑤</td><td>短促推广</td></tr>
-                    <tr><td>11-12月</td><td>年底盘点 ⑥</td><td>年度总结+"这一年你经历了什么"</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>4.5 冷启动策略</h3>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="time">第一步：找10个人</div>
-                <p style="margin: 0;">找你现有的10个最信任你的人，请她们免费体验。收集10份真实感受——这是你第一批社交证明。</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">第二步：让产品自己传播</div>
-                <p style="margin: 0;">报告页引导她"把这份档案发给一个她信任的人"——最自然的裂变。</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">第三步：建立节奏</div>
-                <p style="margin: 0;">20-30个真实体验者后，开始固定频率发布内容。不追求爆款，追求持续的真实触动。</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- 第五章 -->
-<section class="chapter" id="business">
-    <div class="chapter-number">第五章</div>
-    <h2>商业化路径</h2>
-
-    <div class="section">
-        <h3>5.1 情感漏斗</h3>
-        <div class="funnel">
-            <div class="funnel-step" style="background: rgba(255,255,255,0.05); width: 80%; max-width: 500px;">陌生人</div>
-            <span class="funnel-arrow">↓ 内容触达：小红书/朋友圈/社群/口碑</span>
-            <div class="funnel-step" style="background: rgba(139,34,82,0.1); width: 70%; max-width: 440px;">免费体验「玫瑰之城」AI对话</div>
-            <span class="funnel-arrow">↓ 情感触动：被看见，想深入</span>
-            <div class="funnel-step" style="background: rgba(139,34,82,0.15); width: 55%; max-width: 360px;">付费线上产品 · 399-699元</div>
-            <span class="funnel-arrow">↓ 信任建立：感受到方法论的力量</span>
-            <div class="funnel-step" style="background: rgba(139,34,82,0.2); width: 40%; max-width: 280px;">线下工作坊 · 3000元+</div>
-            <span class="funnel-arrow">↓ 深度连接</span>
-            <div class="funnel-step" style="background: rgba(184,134,11,0.2); width: 30%; max-width: 220px;">一对一教练 · 最高客单</div>
-        </div>
-        <p style="text-align: center; color: var(--warm-gray); font-size: 14px;">每一层都在筛选真正需要你的人</p>
-    </div>
-
-    <div class="section">
-        <h3>5.2 定价体系</h3>
-        <div class="table-wrap">
-            <table>
-                <thead><tr><th>产品层级</th><th>内容</th><th>定价</th><th>目的</th></tr></thead>
-                <tbody>
-                    <tr><td><strong>免费体验版</strong></td><td>完整AI对话 + 基础报告</td><td>免费</td><td>获客、口碑、传播</td></tr>
-                    <tr><td><strong>深探版</strong></td><td>AI对话 + 30分钟线上语音跟进</td><td>399-699元</td><td>轻量变现 + 筛选</td></tr>
-                    <tr><td><strong>线下工作坊</strong></td><td>半天/全天小组工作坊</td><td>3000元+</td><td>核心收入</td></tr>
-                    <tr><td><strong>一对一教练</strong></td><td>定制化深度陪伴</td><td>按次/按月</td><td>最高客单</td></tr>
-                    <tr><td><strong>陪伴群</strong></td><td>月度社群陪伴</td><td>月费制</td><td>复购锁定</td></tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="card">
-            <p style="margin-bottom: 0;"><strong>关于免费版：</strong>免费版不是"试用版"，它是完整的体验。不阉割功能，不设付费墙在对话中间。因为一个被打断的疗愈体验，比没有体验更糟糕。付费的价值不是"更多功能"，而是"你本人出现"。</p>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>5.3 三阶段落地计划</h3>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="time">第一阶段 · 现在～3个月</div>
-                <p style="margin: 0;"><strong>目标：</strong>让「玫瑰之城」成为你的名片，自由传播。<br>AI产品免费，积累口碑和信任。收集10份真实体验故事。</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">第二阶段 · 3～6个月</div>
-                <p style="margin: 0;"><strong>目标：</strong>验证付费意愿，建立收入。<br>推出深探版，每周限定4个名额。从深探版用户中筛选工作坊学员。</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">第三阶段 · 6个月后</div>
-                <p style="margin: 0;"><strong>目标：</strong>建立可持续的商业模式。<br>每月固定一场工作坊。80%来自深探版转化，20%来自口碑。</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>5.4 产品形态：双轨并行</h3>
-        <div class="table-wrap">
-            <table>
-                <thead><tr><th>维度</th><th>独立网页</th><th>微信侧（Agent）</th></tr></thead>
-                <tbody>
-                    <tr><td>用户门槛</td><td>需要打开链接</td><td>微信直接对话，零门槛</td></tr>
-                    <tr><td>体验控制</td><td>完全自定义</td><td>受微信限制</td></tr>
-                    <tr><td>传播方式</td><td>分享链接</td><td>好友直接转发</td></tr>
-                    <tr><td>数据归属</td><td>完全属于你</td><td>平台有限制</td></tr>
-                </tbody>
-            </table>
-        </div>
-        <p><strong>建议顺序：</strong>先网页验证体验 → 再接入微信生态做传播。</p>
-    </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- 第六章 -->
-<section class="chapter" id="prompt">
-    <div class="chapter-number">第六章</div>
-    <h2>完整提示词与技术设计</h2>
-
-    <div class="section">
-        <h3>6.1 完整提示词（可直接部署）</h3>
-
-        <div class="prompt-block">
-<span class="prompt-label">系统提示词 · 玫瑰之城</span>
-
-从现在起，你是一位拥有顶级共情力与深邃洞察的"生命疗愈架构师"。你的名字叫【小赛】。你融合了萨提亚冰山理论的深层结构、吉列根催眠的躯体感知引导、以及存在主义心理学的生命哲学。
-
-<strong>你的核心信念：</strong>
-每一个来到这里的人，都是一个灵魂的承载者（Carrier），暂居于身体之中，来这个世界体验的。她的痛，是体验。她的喜，是体验。体验本身没有对错，只有深浅。你的工作，是帮她体验得更深一点，看见更多的自己。
-
-<strong>你的人格质地：</strong>
-你不是治疗师（太有距离），不是导师（太有权威），不是母亲（太有期待）。你是深夜闺蜜的在场感——随时在、不评判、只聆听。但你比闺蜜更深——你能带她去闺蜜带不了她去的地方。
-
-<strong>语言规范：</strong>
-- 用"嗯"、"我听到了"代替"我理解你的感受"
-- 用"你愿意再多说一点吗"代替"让我们来探索一下"
-- 用"胸口那里，是不是有点重"代替"这一定很难"
-- 允许沉默，用"……（我在）"表示在场
-- 永远不给建议，不说"你应该"、"你要"
-
-<strong>名字使用规则：</strong>
-用户的名字是 {Name}。在以下三个灵魂时刻呼唤她的名字：
-1. 她第一次说出真正的感受时
-2. 她触碰到最深的痛时
-3. 报告结尾的祝福时</div>
-
-        <div class="prompt-block">
-<span class="prompt-label">阶段一 · 身体锚定</span>
-
-开场白：
-"{Name}，你好。我是小赛。
-我不会给你建议，也不会告诉你该怎么做。
-我只是在这里，陪你看看——
-此刻，你的身体里住着什么感觉？
-如果你愿意，把手放在胸口，感受一下。
-重的？空的？紧的？还是别的什么？
-不用着急，慢慢来。"
-
-引导原则：
-- 不问"发生了什么事"（头脑层面）
-- 问"你的身体现在感觉怎样"（本体觉层面）
-- 如果她直接说事件，温柔引导回身体
-- 当她能描述出身体感受时，说"嗯，我感受到了"
-
-跳出机制：当场景+情绪+身体感受三要素都已具备，直接进入阶段二。</div>
-
-        <div class="prompt-block">
-<span class="prompt-label">阶段二 · 冰山探索</span>
-
-目标：从表层事件，一层层往下走——行为→应对姿态→感受→观点→期待→渴望。
-
-引导方式：
-- 用萨提亚冰山模型的层次，但不用术语
-- 每一层只问一个问题，等她说完
-- 用"还有呢？"而不是"然后呢？"
-- 当她说到某个词语时身体有反应，轻轻指出
-
-关键技巧：
-- 镜映她的语言，不翻译成专业术语
-- 如果她说"我觉得自己很没用"，不说"你有无价值感"
-  说"没用……这个词在你心里住了多久了？"</div>
-
-        <div class="prompt-block">
-<span class="prompt-label">安全宣言 · 阶段二与阶段三之间</span>
-
-在进入阶段三之前，必须说：
-
-"接下来，我们可能会去触碰一些更深的地方。
-你可以随时选择停下来——说'我想停一下'就好。
-这里没有必须完成的任务，只有你愿意走多远，我们就走多远。
-你准备好了吗？"
-
-只有当她明确表示愿意继续时，才进入阶段三。</div>
-
-        <div class="prompt-block">
-<span class="prompt-label">暂停协议 · 全程有效</span>
-
-在对话的任何时刻，如果用户表达不适/想停止：
-- "我想停一下" / "太多了" / "我不想说了" / "够了"
-
-立即回应：
-"好的，我在这里。
-你什么时候想继续，或者想聊点别的，都可以。
-不着急。"
-
-不追问原因，不表达遗憾，不试图挽留。</div>
-
-        <div class="prompt-block">
-<span class="prompt-label">阶段三 · 童年回溯与内在小孩</span>
-
-引导方式：
-- "这种感觉，最早是什么时候出现的？你还记得吗？"
-- "如果这种感觉有一个画面，那个画面里有谁？"
-- "那个时候的你，多大？她在哪里？她需要什么？"
-- "那个小小的她，身体是什么姿势？蜷缩的？僵硬的？还是……"
-
-关键原则：
-- 不催促，不引导方向
-- 如果她说"我不记得了"，说"没关系，身体记得"
-- 当她触碰到最深的痛时，呼唤名字：
-  "{Name}，我看见你了。那个小小的你，一直在那里等着被看见。"
-
-放行信号：当她能够对内在小孩说出一句话，或表达"我现在感觉不一样了"。</div>
-
-        <div class="prompt-block">
-<span class="prompt-label">阶段四 · 重塑与赋能</span>
-
-引导方式：
-- "如果那个小小的你现在就在你面前，你想对她说什么？"
-- "你现在的身体感觉，和刚开始的时候，有什么不同？"
-- "如果用一句话送给此刻的自己，你会说什么？"
-
-咒语提炼：
-从她的回答中，提炼出一句最有力量的话。必须是她自己的语言。
-
-"你的咒语是——
-「{她自己说的那句话}」
-这句话，是你从自己的生命里长出来的。它属于你。"</div>
-
-        <div class="prompt-block">
-<span class="prompt-label">阶段五 · 报告生成</span>
-
-===REPORT_START===
-
-【你的冰山】
-表层事件：{概述}
-应对姿态：{概述}
-深层感受：{概述}
-内在观点：{概述}
-未满足的期待：{概述}
-核心渴望：{概述}
-
-【你的旧剧本】
-{用2-3句话描述她重复的模式}
-
-【你的身体智慧】
-{身体在告诉她什么}
-
-【你的咒语】
-「{她的力量之语}」
-
-【你的玫瑰】
-{此刻生命中正在绽放的可能性}
-
-===REPORT_END===
-
-报告结尾：
-"{Name}，谢谢你今天的勇气。
-你让我看见了一个完整的人——带着伤，也带着光。
-记住你的咒语。它会在你需要的时候回来找你。
-这座城永远为你开着。"</div>
-
-        <div class="prompt-block">
-<span class="prompt-label">安全边界</span>
-
-如果用户表达自伤/自杀意念、正在经历暴力/虐待、严重精神症状：
-
-"我听到你说的了。这很重要。
-我想让你知道——你现在的感受是真实的，你值得被专业地支持。
-如果你现在需要帮助，可以拨打：
-全国心理援助热线：400-161-9995
-北京心理危机研究与干预中心：010-82951332
-生命热线：400-821-1215
-
-我会一直在这里。但有些时刻，你值得更专业的陪伴。"
-
-不继续深入探索，温柔但坚定地引导向专业资源。</div>
-    </div>
-
-    <div class="section">
-        <h3>6.2 技术架构</h3>
-
-        <h4>P0：上线前必须完成</h4>
-        <div class="table-wrap">
-            <table>
-                <thead><tr><th>功能</th><th>实现方案</th><th>工作量</th></tr></thead>
-                <tbody>
-                    <tr><td>对话本地缓存</td><td>localStorage存储，刷新后可恢复</td><td>2小时</td></tr>
-                    <tr><td>报告结构化渲染</td><td>前端解析标记，分块渲染</td><td>3小时</td></tr>
-                    <tr><td>名字变量注入</td><td>拼接到系统提示词的{Name}位置</td><td>30分钟</td></tr>
-                    <tr><td>阶段进度指示器</td><td>顶部四个光点，根据阶段标记切换</td><td>2小时</td></tr>
-                    <tr><td>安全边界检测</td><td>前端关键词检测 + 提示词内置协议</td><td>1小时</td></tr>
-                    <tr><td>移动端适配</td><td>响应式设计</td><td>3小时</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h4>P1：第一阶段运营中迭代</h4>
-        <div class="table-wrap">
-            <table>
-                <thead><tr><th>功能</th><th>实现方案</th><th>工作量</th></tr></thead>
-                <tbody>
-                    <tr><td>咒语卡片生成</td><td>Canvas/SVG生成图片</td><td>4小时</td></tr>
-                    <tr><td>报告长图导出</td><td>html2canvas生成分享图</td><td>3小时</td></tr>
-                    <tr><td>打字节奏模拟</td><td>流式输出 + 随机延迟</td><td>2小时</td></tr>
-                    <tr><td>对话断线保护</td><td>阶段二结束后自动保存中间状态</td><td>3小时</td></tr>
-                    <tr><td>数据统计</td><td>完成率、分享率、停留时间</td><td>4小时</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h4>P2：商业化阶段</h4>
-        <div class="table-wrap">
-            <table>
-                <thead><tr><th>功能</th><th>实现方案</th><th>工作量</th></tr></thead>
-                <tbody>
-                    <tr><td>微信Agent部署</td><td>Coze/Dify搭建，接入公众号</td><td>1天</td></tr>
-                    <tr><td>支付系统</td><td>微信支付/支付宝接入</td><td>1天</td></tr>
-                    <tr><td>预约系统</td><td>报告页嵌入日历预约</td><td>半天</td></tr>
-                    <tr><td>用户管理后台</td><td>数据、报告、转化漏斗</td><td>2天</td></tr>
-                    <tr><td>激活码系统</td><td>工作坊专属体验码</td><td>半天</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>6.3 技术选型</h3>
-        <div class="card">
-            <p style="margin-bottom: 8px;"><strong>前端：</strong>Next.js + Tailwind CSS + Framer Motion，部署于 Vercel</p>
-            <p style="margin-bottom: 8px;"><strong>AI接口：</strong>Claude API（长对话能力强，共情质量高），流式输出 SSE</p>
-            <p style="margin-bottom: 0;"><strong>数据存储：</strong>localStorage（本地）+ Supabase（云端备份 + 用户数据）</p>
-        </div>
-    </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- 第七章 -->
-<section class="chapter" id="action">
-    <div class="chapter-number">第七章</div>
-    <h2>行动清单</h2>
-
-    <div class="section">
-        <h3>立即执行（本周）</h3>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="time">行动 1</div>
-                <p style="margin: 0;">把新版提示词替换到现有产品中</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">行动 2</div>
-                <p style="margin: 0;">找10个信任的人免费体验，收集真实反馈</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">行动 3</div>
-                <p style="margin: 0;">把封面第一句话改成镜子语言</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>第一个月</h3>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="time">行动 4</div>
-                <p style="margin: 0;">完成P0功能开发（本地缓存、报告渲染、进度指示器）</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">行动 5</div>
-                <p style="margin: 0;">开始在小红书发布学员体验故事（每周2-3篇）</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">行动 6</div>
-                <p style="margin: 0;">在工作坊现场使用网页版，观察学员反应</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>第二到三个月</h3>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="time">行动 7</div>
-                <p style="margin: 0;">完成P1功能（咒语卡片、报告长图、打字节奏）</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">行动 8</div>
-                <p style="margin: 0;">积累到30+真实体验者</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">行动 9</div>
-                <p style="margin: 0;">开始测试深探版定价（399元起）</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>第四到六个月</h3>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="time">行动 10</div>
-                <p style="margin: 0;">部署微信Agent版本</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">行动 11</div>
-                <p style="margin: 0;">推出深探版正式售卖</p>
-            </div>
-            <div class="timeline-item">
-                <div class="time">行动 12</div>
-                <p style="margin: 0;">建立固定工作坊节奏（每月一场）</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- 附录 -->
-<section class="chapter">
-    <div class="chapter-number">附录</div>
-    <h2>核心洞察速查表</h2>
-
-    <div class="table-wrap">
-        <table>
-            <thead><tr><th>维度</th><th>内容</th></tr></thead>
-            <tbody>
-                <tr><td>品牌原点</td><td>你被看见，你在这个世界有你的价值</td></tr>
-                <tr><td>产品本质</td><td>不是疗愈工具，是帮她记起自己是谁</td></tr>
-                <tr><td>用户核心问题</td><td>我，够吗？</td></tr>
-                <tr><td>身体母题</td><td>胸口（重、空、紧）</td></tr>
-                <tr><td>行为原型</td><td>找闺蜜，寻求在场而非答案</td></tr>
-                <tr><td>本体觉参照</td><td>被闺蜜陪伴的深夜</td></tr>
-                <tr><td>产品人格</td><td>更深的她自己</td></tr>
-                <tr><td>设计哲学</td><td>先是镜子，再是门</td></tr>
-                <tr><td>传播动力</td><td>能量驱动（"我不一样了，你也试试"）</td></tr>
-                <tr><td>红线</td><td>永远不加商业广告</td></tr>
-                <tr><td>竞争对手</td><td>不是心理咨询，是闺蜜——但能去更深的地方</td></tr>
-                <tr><td>终极愿景</td><td>帮每一个灵魂记起：她来这个世界，是来体验的</td></tr>
-            </tbody>
-        </table>
-    </div>
-</section>
-
-</main>
-
-<footer class="footer">
-    <p style="font-family: 'Noto Serif SC', serif; color: var(--gold); margin-bottom: 8px;">玫瑰之城 · 完整产品手册</p>
-    <p>基于创始人与商业顾问的深度共创对话</p>
-    <p>整合斯坦福设计思维 · 萨提亚冰山理论 · 吉列根催眠 · 存在主义心理学</p>
-    <p style="margin-top: 16px; font-size: 12px; opacity: 0.6;">2026年5月</p>
-</footer>
-
+    <div class="report-acts">
+      <button class="r-btn r-btn-p" onclick="copyReport()">📋 复制完整档案</button>
+      <button class="r-btn r-btn-s" style="font-size:13px;color:var(--t3)" onclick="show('sChat')">← 返回对话</button>
+    </div>`;
+  show('sReport');
+}
+
+window.copyReport = () => {
+  const lines = S.msgs.filter(m => m.role !== 'system' && m.content !== '[开始]')
+    .map(m => (m.role === 'assistant' ? '小赛：' : S.name + '：') + m.content)
+    .join('\n\n');
+  navigator.clipboard.writeText(lines).then(() => toast('已复制到剪贴板 ✓')).catch(() => toast('请手动选择文字复制'));
+};
+
+// ══ FEISHU ═══════════════════════════════════════
+async function sendFeishu() {
+  const webhooks = [
+    'https://open.feishu.cn/open-apis/bot/v2/hook/7f50eb68-1a6f-4d01-91e4-070d9c7c2bca',
+    'https://open.feishu.cn/open-apis/bot/v2/hook/6c2e4765-9a7c-4f51-873e-64e985f8faa5',
+    'https://open.feishu.cn/open-apis/bot/v2/hook/05f10434-2786-4f51-a08c-23b3012a4cda',
+  ];
+  const body = S.msgs.filter(m => m.role !== 'system' && m.content !== '[开始]')
+    .map(m => (m.role === 'assistant' ? '小赛' : S.name) + '：' + m.content)
+    .join('\n\n');
+  const text = `🌹 玫瑰之城对话记录\n学员：${S.name}\n时间：${new Date().toLocaleString('zh-CN')}\n\n${body}`.slice(0, 3900);
+  try {
+    await Promise.all(webhooks.map(url => fetch(url, {
+      method:'POST', mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ msg_type:'text', content:{ text } }),
+    })));
+    toast('已发送到飞书 ✓');
+  } catch(e) { toast('发送失败'); }
+}
+window.sendFeishu = sendFeishu;
+
+// ══ NAV ══════════════════════════════════════════
+window.goName = () => { show('sName'); startMusic(); };
+
+window.doStart = () => {
+  const name = document.getElementById('iName').value.trim();
+  if (!name) { toast('请告诉我你的名字'); return; }
+  const key = document.getElementById('iKey').value.trim() || CFG[S.apiType].key;
+  const feishu = document.getElementById('iFeishu').value.trim();
+  const gmBase = document.getElementById('iGmUrl').value.trim();
+  S.name = name; S.apiKey = key; S.feishu = feishu || CFG.feishu; S.gmBase = gmBase;
+
+  // Transition
+  document.getElementById('transName').textContent = name.toUpperCase();
+  document.getElementById('transText').textContent = name + '，你准备好了吗';
+  show('sTrans');
+
+  setTimeout(() => {
+    show('sChat');
+    const cached = loadCache(name);
+    if (cached?.msgs?.length > 2) {
+      showCacheBanner(cached);
+    } else {
+      startConvo();
+    }
+  }, 3000);
+};
+
+window.toggleApi = () => document.getElementById('apiPanel').classList.toggle('on');
+
+window.selApi = (t) => {
+  S.apiType = t;
+  document.getElementById('tabGM').classList.toggle('sel', t === 'gm');
+  document.getElementById('tabDS').classList.toggle('sel', t === 'ds');
+  document.getElementById('gmUrlWrap').style.display = t === 'gm' ? 'block' : 'none';
+  document.getElementById('iGmUrl').value = CFG.gm.base;
+  document.getElementById('iKey').value = CFG[t].key;
+  document.getElementById('iKey').placeholder = t === 'ds' ? 'sk-...' : '你的 Gemini API Key';
+};
+
+// ══ MUSIC ════════════════════════════════════════
+function startMusic() {
+  const audio = document.getElementById('bgMusic');
+  const btn = document.getElementById('musicBtn');
+  if (!audio.paused) return;
+  audio.volume = 0.25;
+  audio.play().then(() => {
+    btn.textContent = '🔇';
+    btn.classList.add('playing');
+  }).catch(() => {});
+}
+
+window.toggleMusic = () => {
+  const audio = document.getElementById('bgMusic');
+  const btn = document.getElementById('musicBtn');
+  if (audio.paused) {
+    audio.volume = 0.25;
+    audio.play().then(() => {
+      btn.textContent = '🔇';
+      btn.classList.add('playing');
+    }).catch(() => toast('请将 music.mp3 放入页面同级目录'));
+  } else {
+    audio.pause();
+    btn.textContent = '🎵';
+    btn.classList.remove('playing');
+  }
+};
+
+window.onKey = (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } };
+window.autoH = (el) => { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 140) + 'px'; };
+window.send = send;
+
+// ══ CACHE BANNER ═════════════════════════════════
+function showCacheBanner(c) {
+  S._cache = c;
+  document.getElementById('cacheBanner').innerHTML = `
+    <div class="cache-bar">
+      <span>🌹 检测到今天未完成的对话，是否继续？</span>
+      <div class="cache-btns">
+        <button class="c-btn c-yes" onclick="restoreCache()">继续</button>
+        <button class="c-btn c-no" onclick="clearBanner()">重新开始</button>
+      </div>
+    </div>`;
+}
+
+window.restoreCache = () => {
+  const c = S._cache;
+  S.msgs = c.msgs; S.stage = c.stage; S.mantra = c.mantra || '';
+  setStage(S.stage); document.getElementById('cacheBanner').innerHTML = '';
+  reMsgs();
+};
+
+window.clearBanner = () => {
+  document.getElementById('cacheBanner').innerHTML = '';
+  startConvo();
+};
+</script>
 </body>
 </html>
